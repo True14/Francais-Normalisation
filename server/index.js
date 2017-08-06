@@ -3,6 +3,11 @@ const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
+const mongoose = require('mongoose');
+const {User} = require('./models');
+const {DATABASE_URL, PORT} = require('./config');
+mongoose.Promise = global.Promise;
+require('dotenv').config();
 
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -27,30 +32,57 @@ passport.use(
       callbackURL: '/api/auth/google/callback'
     },
     (accessToken, refreshToken, profile, cb) => {
+      // console.log('Access Token',accessToken,'Profile',profile);
         // Job 1: Set up Mongo/Mongoose, create a User model which store the
         // google id, and the access token
         // Job 2: Update this callback to either update or create the user
         // so it contains the correct access token
-      const user = database[accessToken] = {
-        googleId: profile.id,
-        accessToken: accessToken
-      };
-      return cb(null, user);
+      // const user = database[accessToken] = {
+      //   googleId: profile.id,
+      //   accessToken: accessToken
+      // };
+      // console.log('User: ',user,'database: ', database);
+      let user;
+      User
+        .findOne({googleId: profile.id})
+        .exec()
+        .then(_user => {
+          user = _user;
+          if(!user) {
+            return User.create({
+              googleId: profile.id,
+              accessToken: accessToken
+            });
+          }
+          console.log('Updating token: ',accessToken);
+          return User
+            .findByIdAndUpdate(user.id, {accessToken: accessToken},{new: true})
+            .exec();
+        })
+        .then(user => {
+          console.log(user);
+          return cb(null, user);
+        })
+        .catch(err => console.log('error'));
     }
 ));
 
 passport.use(
-    new BearerStrategy(
-        (token, done) => {
+    new BearerStrategy((token, done) => {
             // Job 3: Update this callback to try to find a user with a
             // matching access token.  If they exist, let em in, if not,
             // don't.
-          if (!(token in database)) {
+      User
+        .find({accessToken: token})
+        .exec()
+        .then(user => {
+          if (!user) {
             return done(null, false);
           }
-          return done(null, database[token]);
-        }
-    )
+          return done(null, user[0].accessToken);
+        })
+        .catch(err => console.log(err));
+    })
 );
 
 app.get('/api/auth/google',
@@ -75,9 +107,11 @@ app.get('/api/auth/logout', (req, res) => {
 
 app.get('/api/me',
     passport.authenticate('bearer', {session: false}),
-    (req, res) => res.json({
-      googleId: req.user.googleId
-    })
+    (req, res) => {
+      res.json({
+        googleId: req.user.googleId
+      });
+    }
 );
 
 app.get('/api/questions',
@@ -96,11 +130,20 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(port=3001) {
+function runServer(databaseUrl=DATABASE_URL, port=3001) {
   return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      resolve();
-    }).on('error', reject);
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      }).on('error', err => {
+        mongoose.disconnect();
+        reject(err);
+      });
+    });
   });
 }
 
