@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const {User} = require('./models');
 const {DATABASE_URL, PORT} = require('./config');
 mongoose.Promise = global.Promise;
-require('dotenv').config();
+
 
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -54,13 +54,11 @@ passport.use(
               accessToken: accessToken
             });
           }
-          console.log('Updating token: ',accessToken);
           return User
             .findByIdAndUpdate(user.id, {accessToken: accessToken},{new: true})
             .exec();
         })
         .then(user => {
-          console.log(user);
           return cb(null, user);
         })
         .catch(err => console.log('error'));
@@ -131,6 +129,7 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 
 let server;
 function runServer(databaseUrl=DATABASE_URL, port=3001) {
+  console.log('URL is', databaseUrl, 'Port is', port);
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
       if (err) {
