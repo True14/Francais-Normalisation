@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: RhH8JuoWFelBCBnrKBed2C/1s0O+c5mGPGIp2PSATkua2tDpykAUVRs0tmJpQSWHoQ90Y/EVp3ji7nZQbA318Mbcml+VvXveQFDXI/V6Yr3kqIwrsAaoOiYaynnLhNLJQEm9GmsZLNuKWnPsZC28gxh75j6EQ7fWYfU+4W5etNDXnMexTkXfFZy4a2uLBa5oVlL4XgiumBXdW769SjWJZw+pSxSxZsY0dVJUFodG+PdputdhfPj1XQILx/BJXDCV4UZrrn55QX6Qxk4vPVZvXZ7rypaY2KxuXz4QWKfZT5N3wvtRFkmpl/pNPKHBl2ar+f3eU7EYbIvmGRF24r9btJRiyILwxp/nKMOVdgRqKR0CParIkT+AEqDcjumR1Fembs7s9d7HGT1FWhOwgXeQbT+rTVIbOunBz++QW/pcrM+VAu6K5AUvZ06jKMMACAyf2Mj0ogAbbO3yfrOPw3GWu/o2d6dwhRCq31KB6zqcTZTF38B9SU/1zmnNbwNxcVM37QdUZGreuTyTVb78HYYTNabPTi0X/6sUz24LKjJvyQfR4Sz6yDk1iOvxL+RL7DlG7+jz68s8oXz0SdzJAPeH+yro5MbMKIZJSI9p24S5FLX1Stjv0Ct57/UsLY7ofq22qX/0Ibtj+1CkdDaqjSXZV967FYkYZnnA2F+MF3mB2Kc=
+  app: frenchatize
+  on:
+    repo: True14/spaced-repetition-starter
