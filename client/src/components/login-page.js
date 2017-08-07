@@ -11,7 +11,12 @@ export default class LoginPage extends React.Component {
                 </div>
 
                 <div id='logo' className='logo-box'>
-                    <h1>Learnlingo</h1>
+                    <h1>Learningo</h1>
+                    <ul>
+                        <li>/learn-ingo/</li>
+                        <li>/learn-n-go/</li>
+                        <li>/learning-O/</li>
+                    </ul>
                 </div>
 
                 <div className='about-us'>
