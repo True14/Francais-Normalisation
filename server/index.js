@@ -102,6 +102,7 @@ passport.use(
           user = _user;
           if(!user) {
             return User.create({
+              name: profile.name.givenName,
               googleId: profile.id,
               accessToken: accessToken
             });

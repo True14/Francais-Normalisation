@@ -17,7 +17,8 @@ questionsSchema.methods.apiRepr = function () {
 const userSchema = mongoose.Schema({
   googleId: {type: String, required: true},
   accessToken: {type: String},
-  name: {type: String}
+  name: {type: String},
+  score: Number
   //questions
 });
 
