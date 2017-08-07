@@ -106,7 +106,8 @@ passport.use(
             return User.create({
               name: profile.name.givenName,
               googleId: profile.id,
-              accessToken: accessToken
+              accessToken: accessToken,
+              score: 0
             });
           }
           return User
@@ -132,7 +133,7 @@ passport.use(
           if (!user) {
             return done(null, false);
           }
-          return done(null, user[0].accessToken);
+          return done(null, user[0]);
         })
         .catch(err => console.log(err));
     })
@@ -161,10 +162,7 @@ app.get('/api/auth/logout', (req, res) => {
 app.get('/api/me',
     passport.authenticate('bearer', {session: false}),
     (req, res) => {
-      console.log(req.headers);
-      res.json({
-        googleId: req.user.googleId
-      });
+      res.json(req.user.apiRepr());
     }
 );
 
@@ -174,11 +172,14 @@ app.get('/api/questions',
 );
 
 app.put('/api/score',
+    passport.authenticate('bearer', {session: false}),
     (req, res) => {
-      User.find({name: req.body.name})
+      User.findByIdAndUpdate(req.body.id, {score: req.body.score}, {new: true})
       .exec()
-      .then(user => {});
-      console.log(req.headers);
+      .then(user => {
+        res.json(user.apiRepr());
+      })
+      .catch(err => console.log(err));
     }
   );
 

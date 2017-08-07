@@ -6,7 +6,7 @@ const questionsSchema = mongoose.Schema({
   answer: String
 });
 
-questionsSchema.methods.apiRepr = function () {
+questionsSchema.methods.apiRepr = function() {
   return {
     id: this._id,
     word: this.word,
@@ -22,6 +22,17 @@ const userSchema = mongoose.Schema({
   //questions
 });
 
-const User = mongoose.model('User', userSchema);
+userSchema.methods.apiRepr = function() {
+  return {
+    id: this._id,
+    googleId: this.googleId,
+    name: this.name,
+    score: this.score
+  };
+};
 
-module.exports = {User};
+
+
+const User = mongoose.model('User', userSchema);
+const Question = mongoose.model('Question', questionsSchema);
+module.exports = {User, Question};
