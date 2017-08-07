@@ -84,17 +84,17 @@ passport.use(
 );
 
 app.get('/api/auth/google',
-    passport.authenticate('google', {scope: ['profile']}));
+  passport.authenticate('google', {scope: ['profile']}));
 
 app.get('/api/auth/google/callback',
-    passport.authenticate('google', {
-      failureRedirect: '/',
-      session: false
-    }),
-    (req, res) => {
-      res.cookie('accessToken', req.user.accessToken, {expires: 0});
-      res.redirect('/');
-    }
+  passport.authenticate('google', {
+    failureRedirect: '/',
+    session: false
+  }),
+  (req, res) => {
+    res.cookie('accessToken', req.user.accessToken, {expires: 0});
+    res.redirect('/');
+  }
 );
 
 app.get('/api/auth/logout', (req, res) => {
@@ -104,38 +104,38 @@ app.get('/api/auth/logout', (req, res) => {
 });
 
 app.get('/api/me',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) => res.json(req.user.apiRepr())
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => res.json(req.user.apiRepr())
 );
 
 app.get('/api/questions',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) =>  {
-      Question
-      .find()
-      .then(questions => {
-        res.json(questions.map(question => {
-          return question.apiRepr();
-        }));
-      })
-      .catch(err =>{
-        console.error(err);
-        res.status(500).json({error: 'We are sorry, we were unable to retrieve the questions.'});
-      });
-    }
+  passport.authenticate('bearer', {session: false}),
+  (req, res) =>  {
+    Question
+    .find()
+    .then(questions => {
+      res.json(questions.map(question => {
+        return question.apiRepr();
+      }));
+    })
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the questions.'});
+    });
+  }
 );
 
 app.put('/api/score',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) => {
-      User.findByIdAndUpdate(req.body.id, {score: req.body.score}, {new: true})
-      .exec()
-      .then(user => {
-        res.json(user.apiRepr());
-      })
-      .catch(err => console.log(err));
-    }
-  );
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    User.findByIdAndUpdate(req.body.id, {score: req.body.score}, {new: true})
+    .exec()
+    .then(user => {
+      res.json(user.apiRepr());
+    })
+    .catch(err => console.log(err));
+  }
+);
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
