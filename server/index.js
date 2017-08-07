@@ -5,7 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bodyParser = require('body-parser');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
-const {User} = require('./models');
+const {User, Question} = require('./models');
 const {DATABASE_URL, PORT} = require('./config');
 mongoose.Promise = global.Promise;
 
@@ -20,62 +20,6 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 const app = express();
-
-const database = {
-};
-
-const questions = [
-  {
-    id: 1,
-    word: 'vouloir',
-    answer: 'want'
-  },
-  {
-    id: 2,
-    word: 'la famille',
-    answer: 'family'
-  },
-  {
-    id: 3,
-    word: 'acheter',
-    answer: 'to buy'
-  },
-  {
-    id: 4,
-    word: 'la carotte',
-    answer: 'carrot'
-  },
-  {
-    id: 5,
-    word: 'beaucoup',
-    answer: 'a lot'
-  },
-  {
-    id: 6,
-    word: 'les gens',
-    answer: 'people'
-  },
-  {
-    id: 7,
-    word: 'la queue',
-    answer: 'tail'
-  },
-  {
-    id: 8,
-    word: 'la question',
-    answer: 'question'
-  },
-  {
-    id: 9,
-    word: 'payer',
-    answer: 'pay'
-  },
-  {
-    id: 10,
-    word: 'les maths',
-    answer: 'mathematics'
-  },
-];
 
 app.use(passport.initialize());
 app.use(bodyParser.json());
@@ -140,17 +84,17 @@ passport.use(
 );
 
 app.get('/api/auth/google',
-    passport.authenticate('google', {scope: ['profile']}));
+  passport.authenticate('google', {scope: ['profile']}));
 
 app.get('/api/auth/google/callback',
-    passport.authenticate('google', {
-      failureRedirect: '/',
-      session: false
-    }),
-    (req, res) => {
-      res.cookie('accessToken', req.user.accessToken, {expires: 0});
-      res.redirect('/');
-    }
+  passport.authenticate('google', {
+    failureRedirect: '/',
+    session: false
+  }),
+  (req, res) => {
+    res.cookie('accessToken', req.user.accessToken, {expires: 0});
+    res.redirect('/');
+  }
 );
 
 app.get('/api/auth/logout', (req, res) => {
@@ -160,28 +104,38 @@ app.get('/api/auth/logout', (req, res) => {
 });
 
 app.get('/api/me',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) => {
-      res.json(req.user.apiRepr());
-    }
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => res.json(req.user.apiRepr())
 );
 
 app.get('/api/questions',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) => res.json(questions)
+  passport.authenticate('bearer', {session: false}),
+  (req, res) =>  {
+    Question
+    .find()
+    .then(questions => {
+      res.json(questions.map(question => {
+        return question.apiRepr();
+      }));
+    })
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the questions.'});
+    });
+  }
 );
 
 app.put('/api/score',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) => {
-      User.findByIdAndUpdate(req.body.id, {score: req.body.score}, {new: true})
-      .exec()
-      .then(user => {
-        res.json(user.apiRepr());
-      })
-      .catch(err => console.log(err));
-    }
-  );
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    User.findByIdAndUpdate(req.body.id, {score: req.body.score}, {new: true})
+    .exec()
+    .then(user => {
+      res.json(user.apiRepr());
+    })
+    .catch(err => console.log(err));
+  }
+);
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
