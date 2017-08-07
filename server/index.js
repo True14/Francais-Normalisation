@@ -5,7 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bodyParser = require('body-parser');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
-const {User} = require('./models');
+const {User, Question} = require('./models');
 const {DATABASE_URL, PORT} = require('./config');
 mongoose.Promise = global.Promise;
 
@@ -161,14 +161,24 @@ app.get('/api/auth/logout', (req, res) => {
 
 app.get('/api/me',
     passport.authenticate('bearer', {session: false}),
-    (req, res) => {
-      res.json(req.user.apiRepr());
-    }
+    (req, res) => res.json(req.user.apiRepr())
 );
 
 app.get('/api/questions',
     passport.authenticate('bearer', {session: false}),
-    (req, res) => res.json(questions)
+    (req, res) =>  {
+      Question
+      .find()
+      .then(questions => {
+        res.json(questions.map(question => {
+          return question.apiRepr();
+        }));
+      })
+      .catch(err =>{
+        console.error(err);
+        res.status(500).json({error: 'We are sorry, we were unable to retrieve the questions.'});
+      });
+    }
 );
 
 app.put('/api/score',
