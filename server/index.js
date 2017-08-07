@@ -75,6 +75,7 @@ const questions = [
     answer: 'mathematics'
   },
 ];
+
 app.use(passport.initialize());
 
 passport.use(
