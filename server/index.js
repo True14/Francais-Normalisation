@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const bodyParser = require('body-parser');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
 const {User} = require('./models');
@@ -77,6 +78,7 @@ const questions = [
 ];
 
 app.use(passport.initialize());
+app.use(bodyParser.json());
 
 passport.use(
     new GoogleStrategy({
@@ -159,6 +161,7 @@ app.get('/api/auth/logout', (req, res) => {
 app.get('/api/me',
     passport.authenticate('bearer', {session: false}),
     (req, res) => {
+      console.log(req.headers);
       res.json({
         googleId: req.user.googleId
       });
@@ -169,6 +172,15 @@ app.get('/api/questions',
     passport.authenticate('bearer', {session: false}),
     (req, res) => res.json(questions)
 );
+
+app.put('/api/score',
+    (req, res) => {
+      User.find({name: req.body.name})
+      .exec()
+      .then(user => {});
+      console.log(req.headers);
+    }
+  );
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
