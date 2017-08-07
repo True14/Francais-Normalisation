@@ -41,7 +41,6 @@ passport.use(
       //   googleId: profile.id,
       //   accessToken: accessToken
       // };
-      // console.log('User: ',user,'database: ', database);
       let user;
       User
         .findOne({googleId: profile.id})
