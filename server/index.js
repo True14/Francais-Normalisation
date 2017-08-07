@@ -21,62 +21,6 @@ if(process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
-const database = {
-};
-
-const questions = [
-  {
-    id: 1,
-    word: 'vouloir',
-    answer: 'want'
-  },
-  {
-    id: 2,
-    word: 'la famille',
-    answer: 'family'
-  },
-  {
-    id: 3,
-    word: 'acheter',
-    answer: 'to buy'
-  },
-  {
-    id: 4,
-    word: 'la carotte',
-    answer: 'carrot'
-  },
-  {
-    id: 5,
-    word: 'beaucoup',
-    answer: 'a lot'
-  },
-  {
-    id: 6,
-    word: 'les gens',
-    answer: 'people'
-  },
-  {
-    id: 7,
-    word: 'la queue',
-    answer: 'tail'
-  },
-  {
-    id: 8,
-    word: 'la question',
-    answer: 'question'
-  },
-  {
-    id: 9,
-    word: 'payer',
-    answer: 'pay'
-  },
-  {
-    id: 10,
-    word: 'les maths',
-    answer: 'mathematics'
-  },
-];
-
 app.use(passport.initialize());
 app.use(bodyParser.json());
 
