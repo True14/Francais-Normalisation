@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const bodyParser = require('body-parser');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
 const {User} = require('./models');
@@ -75,7 +76,9 @@ const questions = [
     answer: 'mathematics'
   },
 ];
+
 app.use(passport.initialize());
+app.use(bodyParser.json());
 
 passport.use(
     new GoogleStrategy({
@@ -101,8 +104,10 @@ passport.use(
           user = _user;
           if(!user) {
             return User.create({
+              name: profile.name.givenName,
               googleId: profile.id,
-              accessToken: accessToken
+              accessToken: accessToken,
+              score: 0
             });
           }
           return User
@@ -128,7 +133,7 @@ passport.use(
           if (!user) {
             return done(null, false);
           }
-          return done(null, user[0].accessToken);
+          return done(null, user[0]);
         })
         .catch(err => console.log(err));
     })
@@ -157,9 +162,7 @@ app.get('/api/auth/logout', (req, res) => {
 app.get('/api/me',
     passport.authenticate('bearer', {session: false}),
     (req, res) => {
-      res.json({
-        googleId: req.user.googleId
-      });
+      res.json(req.user.apiRepr());
     }
 );
 
@@ -167,6 +170,18 @@ app.get('/api/questions',
     passport.authenticate('bearer', {session: false}),
     (req, res) => res.json(questions)
 );
+
+app.put('/api/score',
+    passport.authenticate('bearer', {session: false}),
+    (req, res) => {
+      User.findByIdAndUpdate(req.body.id, {score: req.body.score}, {new: true})
+      .exec()
+      .then(user => {
+        res.json(user.apiRepr());
+      })
+      .catch(err => console.log(err));
+    }
+  );
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
