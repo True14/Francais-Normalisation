@@ -1,8 +1,10 @@
 const initialState = {
     currentUser:null,
     currentQuestion: undefined,
-    nextQuestion: undefined,
-    questions:[]
+    questions:[],
+    nextQuestion: null,
+    score:null,
+    loading:false
 }
 
 export const learnReducer = (state = initialState, action) => {
