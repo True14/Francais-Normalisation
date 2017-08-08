@@ -35,8 +35,8 @@ class QuestionPage extends React.Component {
         
         // this.state.questions.map((question, index) =>
         //     <li key={index}>{question}</li>
-        // );
-
+        // 
+       
         return (
             <div id='question-container'>
                  <div className='logout-box'>

@@ -2,9 +2,10 @@ const path = require('path');
 const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const bodyParser = require('body-parser');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
-const {User} = require('./models');
+const {User, Question} = require('./models');
 const {DATABASE_URL, PORT} = require('./config');
 mongoose.Promise = global.Promise;
 
@@ -20,10 +21,8 @@ if(process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
-const database = {
-};
-
 app.use(passport.initialize());
+app.use(bodyParser.json());
 
 passport.use(
     new GoogleStrategy({
@@ -41,7 +40,6 @@ passport.use(
       //   googleId: profile.id,
       //   accessToken: accessToken
       // };
-      // console.log('User: ',user,'database: ', database);
       let user;
       User
         .findOne({googleId: profile.id})
@@ -50,8 +48,10 @@ passport.use(
           user = _user;
           if(!user) {
             return User.create({
+              name: profile.name.givenName,
               googleId: profile.id,
-              accessToken: accessToken
+              accessToken: accessToken,
+              score: 0
             });
           }
           return User
@@ -77,24 +77,24 @@ passport.use(
           if (!user) {
             return done(null, false);
           }
-          return done(null, user[0].accessToken);
+          return done(null, user[0]);
         })
         .catch(err => console.log(err));
     })
 );
 
 app.get('/api/auth/google',
-    passport.authenticate('google', {scope: ['profile']}));
+  passport.authenticate('google', {scope: ['profile']}));
 
 app.get('/api/auth/google/callback',
-    passport.authenticate('google', {
-      failureRedirect: '/',
-      session: false
-    }),
-    (req, res) => {
-      res.cookie('accessToken', req.user.accessToken, {expires: 0});
-      res.redirect('/');
-    }
+  passport.authenticate('google', {
+    failureRedirect: '/',
+    session: false
+  }),
+  (req, res) => {
+    res.cookie('accessToken', req.user.accessToken, {expires: 0});
+    res.redirect('/');
+  }
 );
 
 app.get('/api/auth/logout', (req, res) => {
@@ -104,17 +104,37 @@ app.get('/api/auth/logout', (req, res) => {
 });
 
 app.get('/api/me',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) => {
-      res.json({
-        googleId: req.user.googleId
-      });
-    }
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => res.json(req.user.apiRepr())
 );
 
 app.get('/api/questions',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) => res.json(['Question 1', 'Question 2'])
+  passport.authenticate('bearer', {session: false}),
+  (req, res) =>  {
+    Question
+    .find()
+    .then(questions => {
+      res.json(questions.map(question => {
+        return question.apiRepr();
+      }));
+    })
+    .catch(err =>{
+      console.error(err);
+      res.status(500).json({error: 'We are sorry, we were unable to retrieve the questions.'});
+    });
+  }
+);
+
+app.put('/api/score',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    User.findByIdAndUpdate(req.body.id, {score: req.body.score}, {new: true})
+    .exec()
+    .then(user => {
+      res.json(user.apiRepr());
+    })
+    .catch(err => console.log(err));
+  }
 );
 
 // Serve the built client
