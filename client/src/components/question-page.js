@@ -47,7 +47,7 @@ class QuestionPage extends React.Component {
                     <ul className="question-list">
                         {/* {questions} */}
                     </ul>
-                    <Link to='#'onClick={console.log(this)}><p>next</p></Link> 
+                    <Link to='#'onClick={console.log(this)}><p className='next-link'>next</p></Link> 
                 </div>
                 
             </div>
