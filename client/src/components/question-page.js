@@ -31,10 +31,8 @@ class QuestionPage extends React.Component {
     }
 
     render() {
-        // const questions = this.props.questions
-        
-        // this.state.questions.map((question, index) =>
-        //     <li key={index}>{question}</li>
+        // const questions = this.state.questions.map((question, index) =>
+        //     <li key={index}>{question.word}</li>
         // );
 
         return (
@@ -47,9 +45,9 @@ class QuestionPage extends React.Component {
                     <ul className="question-list">
                         {/* {questions} */}
                     </ul>
-                    <Link to='#'onClick={console.log(this)}><p>next</p></Link> 
+                    <Link to='#'onClick={console.log(this)}><p>next</p></Link>
                 </div>
-                
+
             </div>
         );
     }
