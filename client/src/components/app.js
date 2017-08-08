@@ -1,10 +1,11 @@
 import React from 'react';
 import * as Cookies from 'js-cookie';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import QuestionPage from './question-page';
 import LoginPage from './login-page';
 import DashBoard from './dashboard';
-import LogOut from './logout';
+// import LogOut from './logout';
 
 class App extends React.Component {
     constructor(props) {
@@ -50,9 +51,9 @@ class App extends React.Component {
                 <div className='app'>
                     <main>
                         <Route  exact path='/' component={DashBoard}  />
-                        <Route  exact path='/questions' component={QuestionPage}/>  
+                        <Route  exact path='/questions' component={QuestionPage}/>
                         {/* <Route  exact path='/logout' component={LogOut}/> */}
-                    </main> 
+                    </main>
                 </div>
             </Router>
         )
