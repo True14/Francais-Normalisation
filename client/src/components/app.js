@@ -52,7 +52,6 @@ class App extends React.Component {
                     <main>
                         <Route  exact path='/' component={DashBoard}  />
                         <Route  exact path='/questions' component={QuestionPage}/>
-                        {/* <Route  exact path='/logout' component={LogOut}/> */}
                     </main>
                 </div>
             </Router>
