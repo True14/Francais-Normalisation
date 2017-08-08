@@ -1,4 +1,3 @@
-'use strict';
 
 function createNode(data=null, next=null, prev=null) {
   return {
@@ -49,18 +48,18 @@ export default class Queue {
   }
 }
 
-const display = queue => {
-  let node = queue.first;
-  while (node !== null) {
-    console.log(node.data);
-    node = node.prev;
-  }
-};
-
-const peek = queue => {
-  if (queue.first === null || queue.last === null) {
-    return null;
-  }
-
-  return queue.first.data;
-};
+// const display = queue => {
+//   let node = queue.first;
+//   while (node !== null) {
+//     console.log(node.data);
+//     node = node.prev;
+//   }
+// };
+//
+// const peek = queue => {
+//   if (queue.first === null || queue.last === null) {
+//     return null;
+//   }
+//
+//   return queue.first.data;
+// };
