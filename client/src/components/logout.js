@@ -3,13 +3,13 @@ import Logo from './logo';
 
 class LogOut extends React.Component  {
     render() {
-        return ( 
+        return (
                 <div id='logout' className='logout-box'>
-                     <Logo />   
+                     <Logo />
                 </div>
         )
     }
-   
+
 }
 
-export default Logo;
+export default LogOut;

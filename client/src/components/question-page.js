@@ -3,7 +3,7 @@ import * as Cookies from 'js-cookie';
 import {connect} from 'react-redux';
 import Logo from './logo';
 import {Link} from 'react-router-dom'
-import questionpage from './question-page.css'
+import './question-page.css'
 
 class QuestionPage extends React.Component {
     constructor(props) {
@@ -32,11 +32,11 @@ class QuestionPage extends React.Component {
 
     render() {
         // const questions = this.props.questions
-        
+
         // this.state.questions.map((question, index) =>
         //     <li key={index}>{question}</li>
-        // 
-       
+        //
+
         return (
             <div id='question-container'>
                  <div className='logout-box'>
@@ -47,9 +47,9 @@ class QuestionPage extends React.Component {
                     <ul className="question-list">
                         {/* {questions} */}
                     </ul>
-                    <Link to='#'onClick={console.log(this)}><p>next</p></Link> 
+                    <Link to='#'onClick={console.log(this)}><p>next</p></Link>
                 </div>
-                
+
             </div>
         );
     }
