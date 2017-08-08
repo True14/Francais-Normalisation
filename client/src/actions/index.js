@@ -40,6 +40,17 @@ export const getCurrentUserRequest = () => ({
     type: GET_CURRENT_USER_REQUEST,
 });
 
+export const SET_USER_ANSWER = 'SET_USER_ANSWER';
+export const setUserAnswer = answer => ({
+  type: SET_USER_ANSWER,
+  answer
+});
+
+export const CORRECT = 'CORRECT';
+export const correct = question => ({
+  type: CORRECT,
+  question
+});
 
 export const getLessons = () => dispatch => {
      const accessToken = Cookies.get('accessToken');

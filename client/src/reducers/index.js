@@ -1,10 +1,13 @@
+import Queue from '../queue';
 const initialState = {
     currentUser: null,
     currentQuestion: undefined,
     questions:[],
     nextQuestion: null,
     score:null,
-    loading:false
+    loading:false,
+    questionQueue: null,
+    userAnswer: ''
 }
 
 export const learnReducer = (state = initialState, action) => {
@@ -14,8 +17,17 @@ export const learnReducer = (state = initialState, action) => {
 
             })
         case 'REQUEST_LESSON_SUCCESS':
+            let queue = new Queue();
+            action.questions.forEach(question => {
+              queue.enqueue(question);
+            })
+            console.log(queue);
+            let current = queue.dequeue();
+            console.log(current);
             return Object.assign({}, state, {
-                questions:action.questions
+                questions: action.questions,
+                questionQueue: queue,
+                currentQuestion: current
             })
         case 'REQUEST_LESSON_ERROR':
             return Object.assign({}, state, {
@@ -26,6 +38,19 @@ export const learnReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 currentUser: action.user
             })
+        case 'SET_USER_ANSWER':
+            const userAnswer = action.answer
+            return {...state, userAnswer}
+        case 'CORRECT':
+            const questionQueue = state.questionQueue;
+            current = questionQueue.dequeue();
+            questionQueue.enqueue(action.question);
+            return Object.assign({}, state, {
+              currentQuestion: current,
+              questionQueue,
+              userAnswer: ''
+            })
+
         default:
             return state
     }
