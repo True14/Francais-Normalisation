@@ -22,13 +22,8 @@ class DashBoard extends React.Component {
                 </div>
             </div>
         )
-<<<<<<< HEAD
-        
-    } 
-=======
-
-    }
->>>>>>> 9d0a9af141e31b14d118f0b38a8d9cc7a88ec511
+      }
 }
+
 
 export default DashBoard;

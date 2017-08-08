@@ -22,14 +22,13 @@ export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const nextQuestion = () => ({
     type:NEXT_QUESTION
 })
-<<<<<<< HEAD
 
 export const GET_SCORE_SUCCESS = 'GET_SCORE_SUCCESS';
 export const getScoreSuccess = score => ({
     type:GET_SCORE_SUCCESS,
     score
 })
-  
+
 export const GET_SCORE_ERROR = 'GET_SCORE_ERROR';
 export const getScoreError = error => ({
     type:GET_SCORE_ERROR,
@@ -44,7 +43,7 @@ export const getScoreRequest = () => ({
 export const getLessons = () => dispatch => {
      const accessToken = Cookies.get('accessToken');
     dispatch(requestLesson())
-    request 
+    request
         .get('/api/questions')
         .set({'Authorization':`Bearer ${accessToken}`})
         .then(res =>{dispatch(requestLessonSuccess(res.body))})
@@ -54,7 +53,7 @@ export const getLessons = () => dispatch => {
 export const getScore = () => dispatch => {
      const accessToken = Cookies.get('accessToken');
     dispatch(getScoreRequest())
-    request 
+    request
         .get('/api/me')
         .set({'Authorization':`Bearer ${accessToken}`})
         .then(res =>{dispatch(getScoreSuccess(res))})
@@ -64,18 +63,15 @@ export const getScore = () => dispatch => {
 export const updateScore = (score) => {
      const accessToken = Cookies.get('accessToken');
     console.log('this is ===>',score)
-    let id;
     request
         // .get('/api/me')
-        
+
         // .then(req => req.body.id = id)
         // .set({'id':id})
         .put('/api/score')
-        
+
         .set({'Authorization':`Bearer ${accessToken}`})
         .send({'req.body.score':score})
         .catch(err => console.log(err))
 }
-// const answerQuestion  
-=======
->>>>>>> 9d0a9af141e31b14d118f0b38a8d9cc7a88ec511
+// const answerQuestion
