@@ -8,37 +8,38 @@ export const requestLesson = () => ({
 
 export const REQUEST_LESSON_SUCCESS = 'REQUEST_LESSON_SUCCESS';
 export const requestLessonSuccess = questions => ({
-    type:REQUEST_LESSON_SUCCESS,
+    type: REQUEST_LESSON_SUCCESS,
     questions
 });
 
 export const REQUEST_LESSON_ERROR = 'REQUEST_LESSON_ERROR';
 export const requestLessonError = error => ({
-    type:REQUEST_LESSON_ERROR,
+    type: REQUEST_LESSON_ERROR,
     error
 });
 
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const nextQuestion = () => ({
-    type:NEXT_QUESTION
+    type: NEXT_QUESTION
 })
 
-export const GET_SCORE_SUCCESS = 'GET_SCORE_SUCCESS';
-export const getScoreSuccess = score => ({
-    type:GET_SCORE_SUCCESS,
-    score
+export const GET_CURRENT_USER_SUCCESS = 'GET_CURRENT_USER_SUCCESS';
+export const getCurrentUserSuccess = user => ({
+    type: GET_CURRENT_USER_SUCCESS,
+    user
 })
 
-export const GET_SCORE_ERROR = 'GET_SCORE_ERROR';
-export const getScoreError = error => ({
-    type:GET_SCORE_ERROR,
+export const GET_CURRENT_USER_ERROR = 'GET_CURRENT_USER_ERROR';
+export const getCurrentUserError = error => ({
+    type: GET_CURRENT_USER_ERROR,
     error
 });
 
-export const GET_SCORE_REQUEST = 'GET_SCORE_REQUEST';
-export const getScoreRequest = () => ({
-    type:GET_SCORE_REQUEST,
+export const GET_CURRENT_USER_REQUEST = 'GET_CURRENT_USER_REQUEST';
+export const getCurrentUserRequest = () => ({
+    type: GET_CURRENT_USER_REQUEST,
 });
+
 
 export const getLessons = () => dispatch => {
      const accessToken = Cookies.get('accessToken');
@@ -46,43 +47,43 @@ export const getLessons = () => dispatch => {
     request
         .get('/api/questions')
         .set({'Authorization':`Bearer ${accessToken}`})
-        .then(res =>{dispatch(requestLessonSuccess(res.body))})
+        .then(res =>{
+          console.log("res: ", res);
+          dispatch(requestLessonSuccess(res.body))
+        })
         .catch(err => dispatch(requestLessonError(err)))
 }
 
-export const getScore = () => dispatch => {
-     const accessToken = Cookies.get('accessToken');
-    dispatch(getScoreRequest())
-    request
-        .get('/api/me')
-        .set({'Authorization':`Bearer ${accessToken}`})
-        .then(res =>{dispatch(getScoreSuccess(res))})
-        .catch(err => dispatch(getScoreError(err)))
+export const getCurrentUser = () => dispatch => {
+    const accessToken = Cookies.get('accessToken');
+    if (accessToken) {
+      dispatch(getCurrentUserRequest());
+      request
+          .get('/api/me')
+          .set({'Authorization':`Bearer ${accessToken}`})
+          .then(res => {
+            if (!res.ok) {
+              if (res.status === 401) {
+                Cookies.remove('accessToken');
+                return;
+              }
+              throw new Error(res.statusText)
+            }
+            dispatch(getCurrentUserSuccess(res.body))
+          })
+          .catch(err => dispatch(getCurrentUserError(err)))
+    }
 }
 
 export const updateScore = (score,id) => dispatch => {
      const accessToken = Cookies.get('accessToken');
     console.log('this is ===>',score)
+    console.log('this is the id:', id);
     let body = {score:score, id:id}
-    // let id;
-    // request
-        // .get('/api/me')
-
-        // .then(req => req.body.id = id)
-        // .set({'id':id})
-        // .put(`/api/score`)
-
-        // .set({'Authorization':`Bearer ${accessToken}`})
-        // .send({'req.body.score':score})
-        // .catch(err => console.log(err))
         return fetch('/api/score', {
             method: 'PUT',
             headers: {Authorization: `Bearer ${accessToken}`},
             body:JSON.stringify(body)
         })
-        .then(res => res.send(body))
-        .then(res => {dispatch(getScoreSuccess(res))})
-        .then(() => dispatch(getScore()))
-        .catch(err => dispatch(getScoreError()))
+        .then(res => console.log("This is what i want to look at: ", res));
 }
-// const answerQuestion

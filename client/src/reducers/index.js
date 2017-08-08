@@ -1,5 +1,5 @@
 const initialState = {
-    currentUser:null,
+    currentUser: null,
     currentQuestion: undefined,
     questions:[],
     nextQuestion: null,
@@ -22,9 +22,9 @@ export const learnReducer = (state = initialState, action) => {
                 error:action.error
             })
 
-        case 'GET_SCORE_SUCCESS':
+        case 'GET_CURRENT_USER_SUCCESS':
             return Object.assign({}, state, {
-                score:action.score
+                currentUser: action.user
             })
         default:
             return state
