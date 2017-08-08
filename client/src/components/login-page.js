@@ -1,6 +1,6 @@
 import React from 'react';
 import loginpage from './login-page.css';
-
+import Logo from './logo';
 export default class LoginPage extends React.Component {
     render() {
 
@@ -9,15 +9,15 @@ export default class LoginPage extends React.Component {
                 <div className='login-box'> 
                     <a href={'/api/auth/google'}><button>Login with Google</button></a>
                 </div>
-
-                <div id='logo' className='logo-box'>
+                 <Logo /> 
+                 {/* <div id='logo' className='logo-box'>
                     <h1>Learningo</h1>
                     <ul>
-                        <li>/learn-ingo/</li>
+                        <li>/learn-ingo/</li> 
                         <li>/learn-n-go/</li>
                         <li>/learning-O/</li>
                     </ul>
-                </div>
+                </div>  */}
 
                 <div className='about-us'>
                     <h2>About Us...</h2>

@@ -1,6 +1,6 @@
 {
-  "name": "thinkful-full-stack-template-client",
-  "version": "0.1.0",
+  "name": "Learningo",
+  "version": "0.3.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "0.9.0"
@@ -8,7 +8,13 @@
   "dependencies": {
     "js-cookie": "^2.1.3",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.2",
+    "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "superagent": "^3.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
