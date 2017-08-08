@@ -22,7 +22,6 @@ export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const nextQuestion = () => ({
     type:NEXT_QUESTION
 })
-<<<<<<< HEAD
 
 export const GET_SCORE_SUCCESS = 'GET_SCORE_SUCCESS';
 export const getScoreSuccess = score => ({
@@ -61,21 +60,29 @@ export const getScore = () => dispatch => {
         .catch(err => dispatch(getScoreError(err)))
 }
 
-export const updateScore = (score) => {
+export const updateScore = (score,id) => dispatch => {
      const accessToken = Cookies.get('accessToken');
     console.log('this is ===>',score)
-    let id;
-    request
+    let body = {score:score, id:id}
+    // let id;
+    // request
         // .get('/api/me')
         
         // .then(req => req.body.id = id)
         // .set({'id':id})
-        .put('/api/score')
+        // .put(`/api/score`)
         
-        .set({'Authorization':`Bearer ${accessToken}`})
-        .send({'req.body.score':score})
-        .catch(err => console.log(err))
+        // .set({'Authorization':`Bearer ${accessToken}`})
+        // .send({'req.body.score':score})
+        // .catch(err => console.log(err))
+        return fetch('/api/score', {
+            method: 'PUT',
+            headers: {Authorization: `Bearer ${accessToken}`},
+            body:JSON.stringify(body)
+        })
+        .then(res => res.send(body))
+        .then(res => {dispatch(getScoreSuccess(res))})
+        .then(() => dispatch(getScore()))
+        .catch(err => dispatch(getScoreError()))
 }
 // const answerQuestion  
-=======
->>>>>>> 9d0a9af141e31b14d118f0b38a8d9cc7a88ec511
