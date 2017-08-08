@@ -35,7 +35,6 @@ class App extends React.Component {
                 }
                 return res.json();
             }).then(currentUser => {
-              console.log(currentUser);
                 // console.log(currentUser)
                 return this.setState({currentUser})}
             );
