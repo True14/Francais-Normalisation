@@ -28,7 +28,7 @@ export const getScoreSuccess = score => ({
     type:GET_SCORE_SUCCESS,
     score
 })
-
+  
 export const GET_SCORE_ERROR = 'GET_SCORE_ERROR';
 export const getScoreError = error => ({
     type:GET_SCORE_ERROR,

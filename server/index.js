@@ -29,7 +29,7 @@ passport.use(
       clientID:  secret.CLIENT_ID,
       clientSecret: secret.CLIENT_SECRET,
       callbackURL: '/api/auth/google/callback'
-    },
+    }, 
     (accessToken, refreshToken, profile, cb) => {
       // console.log('Access Token',accessToken,'Profile',profile);
         // Job 1: Set up Mongo/Mongoose, create a User model which store the
