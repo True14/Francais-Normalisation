@@ -1,12 +1,25 @@
 import React from 'react';
-import * as Cookies from 'js-cookie';
 import {connect} from 'react-redux';
 import Logo from './logo';
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
+import {getLessons} from '../actions';
+import Question from './question';
+import './question-page.css'
 
-        // this.state.questions.map((question, index) =>
-        //     <li key={index}>{question}</li>
-        //
+class QuestionPage extends React.Component {
+
+    componentDidMount() {
+      this.props.dispatch(getLessons())
+    }
+
+    render() {
+      if(!this.props.questions.length) {
+         return <p>Could not load questions</p>;
+      }
+
+      // const questions = this.props.questions.map((question, index) => {
+      //   return <Question key={index} />
+      // });
 
         return (
             <div id='question-container'>
@@ -15,10 +28,7 @@ import {Link} from 'react-router-dom'
                 </div>
                 <Logo />
                 <div className='question-box'>
-                    <ul className="question-list">
-                        {/* {questions} */}
-                    </ul>
-                    <Link to='#'onClick={() =>{this.props.dispatch(updateScore(1000000, this.props.score.id))}}><p className='next-link'>next</p></Link>
+                  <Question />
                 </div>
             </div>
         );
@@ -31,5 +41,4 @@ const mapPropsToState = (state,props) => {
     }
 }
 
-// export default QuestionPage;
 export default connect(mapPropsToState)(QuestionPage)
