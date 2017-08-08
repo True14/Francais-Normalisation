@@ -1,6 +1,7 @@
 const initialState = {
     currentUser:null,
     currentQuestion: undefined,
+<<<<<<< HEAD
     nextQuestion: null,
     score:null,
     loading:false
@@ -25,6 +26,30 @@ const initialState = {
     // }, {
     //      id: 10, word: 'les maths', answer: 'mathematics' 
     //     }, ]
+=======
+    nextQuestion: undefined,
+    questions:[ {
+        id: 1, word: 'vouloir', answer: 'want'
+    }, {
+        id: 2, word: 'la famille', answer: 'family'
+    }, {
+        id: 3, word: 'acheter', answer: 'to buy'
+    }, {
+        id: 4, word: 'la carotte', answer: 'carrot'
+    }, {
+        id: 5, word: 'beaucoup', answer: 'a lot'
+    }, {
+         id: 6, word: 'les gens', answer: 'people'
+    }, {
+         id: 7, word: 'la queue', answer: 'tail'
+    }, {
+         id: 8, word: 'la question', answer: 'question'
+    }, {
+         id: 9, word: 'payer', answer: 'pay'
+    }, {
+         id: 10, word: 'les maths', answer: 'mathematics'
+        }, ]
+>>>>>>> 9d0a9af141e31b14d118f0b38a8d9cc7a88ec511
 
 }
 
@@ -32,7 +57,7 @@ export const learnReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'REQUEST_LESSON':
             return Object.assign ({}, state, {
-               
+
             })
         case 'REQUEST_LESSON_SUCCESS':
             return Object.assign({}, state, {

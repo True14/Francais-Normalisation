@@ -22,6 +22,7 @@ export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const nextQuestion = () => ({
     type:NEXT_QUESTION
 })
+<<<<<<< HEAD
 
 export const GET_SCORE_SUCCESS = 'GET_SCORE_SUCCESS';
 export const getScoreSuccess = score => ({
@@ -76,3 +77,5 @@ export const updateScore = (score) => {
         .catch(err => console.log(err))
 }
 // const answerQuestion  
+=======
+>>>>>>> 9d0a9af141e31b14d118f0b38a8d9cc7a88ec511

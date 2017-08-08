@@ -1,9 +1,9 @@
 import React from 'react';
-import loginpage from './login-page.css';
+import './login-page.css';
 
 class Logo extends React.Component  {
     render() {
-        return ( 
+        return (
                 <div id='logo' className='logo-box'>
                         <h1>Learningo</h1>
                         <ul>
@@ -14,7 +14,7 @@ class Logo extends React.Component  {
                 </div>
         )
     }
-   
+
 }
 
 export default Logo;
