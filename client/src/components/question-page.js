@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Logo from './logo';
 import {getLessons} from '../actions';
 import Question from './question';
-import './question-page.css'
+// import './question-page.css'
 
 class QuestionPage extends React.Component {
 
