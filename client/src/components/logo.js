@@ -5,7 +5,7 @@ class Logo extends React.Component  {
     render() {
         return (
                 <div id='logo' className='logo-box'>
-                        <h1>Frenchatize me Cap{`'`}n</h1>
+                        <h1>Frenchatize Me Cap{`'`}n</h1>
                 </div>
         )
     }
