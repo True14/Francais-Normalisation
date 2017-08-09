@@ -1,4 +1,4 @@
-import request from "../../node_modules/superagent/superagent";
+import request from "superagent";
 import * as Cookies from 'js-cookie';
 
 export const REQUEST_LESSON = 'REQUEST_LESSON';
