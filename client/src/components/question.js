@@ -1,17 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setUserAnswer, correct, toggleFeedback} from '../actions';
+import {setUserAnswer, toggleFeedback, setResult} from '../actions';
 
 class Question extends React.Component {
 
   _onSumbit = (e) => {
     e.preventDefault();
-    // if (this.props.userAnswer === this.props.currentQuestion.answer) {
-    //   this.props.dispatch(correct(this.props.currentQuestion))
-    // }else {
-    this.props.dispatch(toggleFeedback())
-      // this.props.dispatch(correct(this.props.currentQuestion))
-    // }
+    if (this.props.userAnswer) {
+      if (this.props.userAnswer === this.props.currentQuestion.answer) {
+        this.props.dispatch(setResult('Correct'))
+      }else {
+        this.props.dispatch(setResult('Wrong'))
+      }
+      this.props.dispatch(toggleFeedback())
+    }
   }
 
   _onChange = e => {
@@ -23,11 +25,16 @@ class Question extends React.Component {
     if(!this.props.currentQuestion) {
       return <p>no questions</p>
     }
+
     if(this.props.showFeedback) {
-      <div className='current-question'>
+    return (
+       <div className='current-question'>
         <span>{this.props.currentQuestion.word}</span>
-      </div>
+        <span>Your answer: {this.props.userAnswer}</span>
+       </div>
+      )
     }
+
     return (
       <form className='current-question' onSubmit={this._onSumbit} >
         {this.props.currentQuestion.word}
@@ -42,7 +49,6 @@ const mapPropsToState = (state,props) => {
     currentQuestion: state.currentQuestion,
     userAnswer: state.userAnswer,
     showFeedback: state.showFeedback,
-    result: state.result
   }
 }
 export default connect(mapPropsToState)(Question)
