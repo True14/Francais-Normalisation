@@ -7,36 +7,43 @@ const initialState = {
     score:null,
     loading:false,
     questionQueue: null,
-    userAnswer: ''
+    userAnswer: '',
+    error: null,
+    showFeedback: false,
+    result: null
 }
 
 export const learnReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'REQUEST_LESSON':
-            return Object.assign ({}, state, {
-
+        case 'FETCH_REQUEST':
+            return Object.assign({}, state, {
+              loading: true
             })
-        case 'REQUEST_LESSON_SUCCESS':
+        case 'REQUEST_QUESTIONS_SUCCESS':
             let queue = new Queue();
             action.questions.forEach(question => {
               queue.enqueue(question);
             })
-            console.log(queue);
+            console.log('Queue: ', queue);
             let current = queue.dequeue();
-            console.log(current);
             return Object.assign({}, state, {
                 questions: action.questions,
                 questionQueue: queue,
-                currentQuestion: current
+                currentQuestion: current,
+                loading: false,
+                error: null
             })
-        case 'REQUEST_LESSON_ERROR':
+        case 'FETCH_ERROR':
             return Object.assign({}, state, {
-                error:action.error
+              loading: false,
+                error: action.error
             })
 
         case 'GET_CURRENT_USER_SUCCESS':
             return Object.assign({}, state, {
-                currentUser: action.user
+                currentUser: action.user,
+                loading: false,
+                error: null
             })
         case 'SET_USER_ANSWER':
             const userAnswer = action.answer
@@ -48,9 +55,13 @@ export const learnReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
               currentQuestion: current,
               questionQueue,
-              userAnswer: ''
+              userAnswer: '',
+              result: true
             })
-
+         case 'TOGGLE_FEEDBACK':
+            return Object.assign({}, state, {
+              showFeedback: !state.showFeedback
+            })
         default:
             return state
     }

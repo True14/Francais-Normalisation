@@ -13,6 +13,26 @@ export default class Queue {
     this.last = null;
   }
 
+  insert(position, data) {
+    let pos = position - 1;
+    const newNode = createNode(data);
+    if (!this.first) {
+      return;
+    }
+    let node = this.first;
+    while (node.prev && pos) {
+      node = node.prev;
+      pos--;
+    }
+    if (position > 1) {
+      return;
+    }else {
+      newNode.next = node;
+      newNode.prev = node.prev;
+      node.prev = newNode;
+    }
+  }
+
   enqueue(data) {
     const node = createNode(data);
 
