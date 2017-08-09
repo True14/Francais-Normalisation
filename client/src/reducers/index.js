@@ -10,7 +10,7 @@ const initialState = {
     userAnswer: '',
     error: null,
     showFeedback: false,
-    result: null
+    result: ''
 }
 
 export const learnReducer = (state = initialState, action) => {
@@ -55,9 +55,12 @@ export const learnReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
               currentQuestion: current,
               questionQueue,
-              userAnswer: '',
-              result: true
+              userAnswer: ''
             })
+         case 'SET_RESULT':
+             return Object.assign({}, state, {
+               result: action.result
+             })
          case 'TOGGLE_FEEDBACK':
             return Object.assign({}, state, {
               showFeedback: !state.showFeedback
