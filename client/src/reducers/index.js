@@ -16,66 +16,73 @@ const initialState = {
 export const learnReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'FETCH_REQUEST':
-            return Object.assign({}, state, {
+            return {
+              ...state,
               loading: true
-            })
+            }
         case 'REQUEST_QUESTIONS_SUCCESS':
             let queue = new Queue();
             action.questions.forEach(question => {
               queue.enqueue(question);
             })
-            console.log('Queue: ', queue);
             let current = queue.dequeue();
-            return Object.assign({}, state, {
-                questions: action.questions,
-                questionQueue: queue,
-                currentQuestion: current,
-                loading: false,
-                error: null
-            })
-        case 'FETCH_ERROR':
-            return Object.assign({}, state, {
+            return {
+              ...state,
+              questions: action.questions,
+              questionQueue: queue,
+              currentQuestion: current,
               loading: false,
-                error: action.error
-            })
-
+              error: null
+            }
+        case 'FETCH_ERROR':
+            return {
+              ...state,
+              loading: false,
+              error: action.error
+            }
         case 'GET_CURRENT_USER_SUCCESS':
-            return Object.assign({}, state, {
-                currentUser: action.user,
-                loading: false,
-                error: null
-            })
+            return {
+              ...state,
+              currentUser: action.user,
+              loading: false,
+              error: null
+            }
         case 'SET_USER_ANSWER':
             const userAnswer = action.answer
-            return {...state, userAnswer}
+            return {
+              ...state,
+               userAnswer
+             }
         case 'CORRECT':
             queue = state.questionQueue;
             queue.enqueue(state.currentQuestion);
             current = queue.dequeue();
-            console.log('Queue: ', queue);
-            return Object.assign({}, state, {
+            return {
+              ...state,
               currentQuestion: current,
               queue,
               userAnswer: ''
-            })
+            }
          case 'INCORRECT':
             queue = state.questionQueue;
             queue.insert(1, state.currentQuestion);
             current = queue.dequeue();
-            console.log('Queue: ', queue);
-            return Object.assign({}, state, {
+            return {
+              ...state,
               queue,
               userAnswer: '',
               currentQuestion: current
-            })
+            }
          case 'SET_RESULT':
-             return Object.assign({}, state, {
+             return {
+               ...state,
                result: action.result
-             })
+             }
          case 'TOGGLE_FEEDBACK':
-            return Object.assign({}, state, {
+            return {
+              ...state,
               showFeedback: !state.showFeedback
-            })
+            }
         default:
             return state
     }
