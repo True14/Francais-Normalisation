@@ -35,9 +35,13 @@ export const setUserAnswer = answer => ({
 });
 
 export const CORRECT = 'CORRECT';
-export const correct = question => ({
-  type: CORRECT,
-  question
+export const correct = () => ({
+  type: CORRECT
+});
+
+export const INCORRECT = 'INCORRECT';
+export const incorrect = () => ({
+  type: INCORRECT
 });
 
 export const TOGGLE_FEEDBACK = 'TOGGLE_FEEDBACK';
