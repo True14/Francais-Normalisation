@@ -11,8 +11,8 @@ class DashBoard extends React.Component {
             <section className='dashboard-container'>
               <Logo />
               <div className='question-container'>
-                <p>ready to begin learning francais?</p>
-                <Link to='/questions'><p>next</p></Link>
+                <p>Click 'Begin' to begin your french vocabulary quiz!</p>
+                <Link to='/questions'><button className='begin'>Begin</button></Link>
               </div>
               <div className='logout-box'>
                 <a href={'/api/auth/logout'}><button className='logout-button'>Logout</button></a>
