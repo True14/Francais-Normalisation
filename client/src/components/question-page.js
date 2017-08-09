@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Logo from './logo';
-// import {Link} from 'react-router-dom'
 import {getLessons} from '../actions';
 import Question from './question';
 import './question-page.css'
@@ -17,21 +16,17 @@ class QuestionPage extends React.Component {
          return <p>Could not load questions</p>;
       }
 
-      // const questions = this.props.questions.map((question, index) => {
-      //   return <Question key={index} />
-      // });
-
-        return (
-            <div id='question-container'>
-                 <div className='logout-box'>
-                    <a href={'/api/auth/logout'}><button className='logout-button'>Logout</button></a>
-                </div>
-                <Logo />
-                <div className='question-box'>
-                  <Question />
-                </div>
-            </div>
-        );
+      return (
+        <div id='question-container'>
+          <div className='logout-box'>
+            <a href={'/api/auth/logout'}><button className='logout-button'>Logout</button></a>
+              </div>
+              <Logo />
+              <div className='question-box'>
+                <Question />
+              </div>
+          </div>
+      );
     }
 }
 const mapPropsToState = (state,props) => {
