@@ -49,13 +49,24 @@ export const learnReducer = (state = initialState, action) => {
             const userAnswer = action.answer
             return {...state, userAnswer}
         case 'CORRECT':
-            const questionQueue = state.questionQueue;
-            current = questionQueue.dequeue();
-            questionQueue.enqueue(action.question);
+            queue = state.questionQueue;
+            queue.enqueue(state.currentQuestion);
+            current = queue.dequeue();
+            console.log('Queue: ', queue);
             return Object.assign({}, state, {
               currentQuestion: current,
-              questionQueue,
+              queue,
               userAnswer: ''
+            })
+         case 'INCORRECT':
+            queue = state.questionQueue;
+            queue.insert(1, state.currentQuestion);
+            current = queue.dequeue();
+            console.log('Queue: ', queue);
+            return Object.assign({}, state, {
+              queue,
+              userAnswer: '',
+              currentQuestion: current
             })
          case 'SET_RESULT':
              return Object.assign({}, state, {
