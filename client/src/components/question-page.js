@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Logo from './logo';
 import {getQuestions, correct, toggleFeedback, incorrect} from '../actions';
 import Question from './question';
-import Feedback from './feedback';
+import AnswerCard from './answer-card';
 // import './question-page.css'
 
 class QuestionPage extends React.Component {
@@ -35,7 +35,7 @@ class QuestionPage extends React.Component {
             {this.props.result}
           </div>
         );
-        resultComponent = <Feedback />
+        resultComponent = <AnswerCard />
         nextButton = <button className='next' type='submit' onClick={this._onClick}>Next</button>
       }
 

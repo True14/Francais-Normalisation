@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-class Feedback extends React.Component {
+class AnswerCard extends React.Component {
 
   render() {
     return (
-    <section className='feedback'>
+    <section className='answer-card'>
       <h2>{this.props.currentQuestion.answer}</h2>
     </section>
    )
@@ -18,4 +18,4 @@ const mapPropsToState = (state,props) => {
     userAnswer: state.userAnswer,
   }
 }
-export default connect(mapPropsToState)(Feedback)
+export default connect(mapPropsToState)(AnswerCard)

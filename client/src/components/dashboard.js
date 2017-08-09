@@ -5,8 +5,7 @@ import Logo from './logo';
 import { Link } from 'react-router-dom';
 
 
-class DashBoard extends React.Component {
-    render() {
+const DashBoard = (props) => {
         return (
             <section className='dashboard-container'>
               <Logo />
@@ -19,7 +18,6 @@ class DashBoard extends React.Component {
               </div>
             </section>
         )
-    }
 }
 
 
