@@ -92,7 +92,10 @@ export const getCurrentUser = () => dispatch => {
         }
         throw new Error(res.statusText)
       }
-      dispatch(getCurrentUserSuccess(res.body))
+      return res.json();
+    })
+    .then(res => {
+      dispatch(getCurrentUserSuccess(res));
     })
     .catch(err => dispatch(fetchError(err)))
   }
