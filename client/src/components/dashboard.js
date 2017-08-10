@@ -9,7 +9,7 @@ const DashBoard = (props) => {
             <section className='dashboard-container'>
               <DashHeader />
               <div className='question-container'>
-                <p>Click 'Begin' to begin your french vocabulary quiz!</p>
+                <p>Are you ready to begin your quiz?</p>
                 <Link to='/questions'><button className='begin'>Begin</button></Link>
               </div>
             </section>

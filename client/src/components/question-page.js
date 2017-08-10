@@ -22,7 +22,6 @@ class QuestionPage extends React.Component {
     }
 
     render() {
-      let resultComponent;
       let nextButton;
       let result;
       if(!this.props.currentQuestion) {
@@ -31,7 +30,6 @@ class QuestionPage extends React.Component {
 
       if(this.props.showFeedback) {
         result = <h3>{this.props.result}</h3>;
-        resultComponent = <AnswerCard />
         nextButton = (
           <div className='next'>
             <button type='submit' onClick={this._onClick}>Next</button>

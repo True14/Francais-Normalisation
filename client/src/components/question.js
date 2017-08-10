@@ -30,7 +30,8 @@ class Question extends React.Component {
     if(this.props.showFeedback) {
     return (
        <div className='current-question'>
-        <h4>{this.props.currentQuestion.word}</h4>
+        <h1>Question: </h1>
+        <h2>{this.props.currentQuestion.word}</h2>
         <span>Your answer: {this.props.userAnswer}</span>
        </div>
       )
@@ -38,7 +39,8 @@ class Question extends React.Component {
 
     return (
       <form className='current-question' onSubmit={this._onSumbit} >
-        <h4>{this.props.currentQuestion.word}</h4>
+        <h1>Question: </h1>
+        <h2>{this.props.currentQuestion.word}</h2>
         <input type='text' value={this.props.userAnswer} placeholder='Your Answer' onChange={this._onChange} />
       </form>
     )

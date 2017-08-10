@@ -10,6 +10,7 @@ class AnswerCard extends React.Component {
     }
     return (
     <div className='answer-card'>
+      <h1>Answer: </h1>
       {answer}
     </div>
    )
