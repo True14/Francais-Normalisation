@@ -22,7 +22,16 @@
   border: none;
   border-radius: 20px;
   color: #FFFFFF;
-  background-color: #EF4135
+  background-color: #EF4135;
+  margin-bottom: 30px;
+}
+
+.next > button:hover {
+  box-shadow: 2px 2px 5px black;
+}
+
+.next > button:focus {
+  outline: none;
 }
 
 .result {
