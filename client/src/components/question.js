@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setUserAnswer, toggleFeedback, setResult} from '../actions';
+import '../css/question.css';
 
 class Question extends React.Component {
 
@@ -29,7 +30,7 @@ class Question extends React.Component {
     if(this.props.showFeedback) {
     return (
        <div className='current-question'>
-        <span>{this.props.currentQuestion.word}</span>
+        <h4>{this.props.currentQuestion.word}</h4>
         <span>Your answer: {this.props.userAnswer}</span>
        </div>
       )
@@ -37,8 +38,8 @@ class Question extends React.Component {
 
     return (
       <form className='current-question' onSubmit={this._onSumbit} >
-        {this.props.currentQuestion.word}
-        <input type='text' value={this.props.userAnswer} onChange={this._onChange} />
+        <h4>{this.props.currentQuestion.word}</h4>
+        <input type='text' value={this.props.userAnswer} placeholder='Your Answer' onChange={this._onChange} />
       </form>
     )
   }

@@ -4,10 +4,14 @@ import {connect} from 'react-redux';
 class AnswerCard extends React.Component {
 
   render() {
+    let answer;
+    if(this.props.showFeedback) {
+      answer = <h2>{this.props.currentQuestion.answer}</h2>
+    }
     return (
-    <section className='answer-card'>
-      <h2>{this.props.currentQuestion.answer}</h2>
-    </section>
+    <div className='answer-card'>
+      {answer}
+    </div>
    )
  }
 }
@@ -16,6 +20,7 @@ const mapPropsToState = (state,props) => {
   return {
     currentQuestion: state.currentQuestion,
     userAnswer: state.userAnswer,
+    showFeedback: state.showFeedback
   }
 }
 export default connect(mapPropsToState)(AnswerCard)

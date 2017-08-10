@@ -1,20 +1,16 @@
 import React from 'react';
-import Logo from './logo';
-// import './login-page.css';
-// import './dashboard.css';
+import '../css/dashboard.css';
+import DashHeader from './dash-header'
 import { Link } from 'react-router-dom';
 
 
 const DashBoard = (props) => {
         return (
             <section className='dashboard-container'>
-              <Logo />
+              <DashHeader />
               <div className='question-container'>
                 <p>Click 'Begin' to begin your french vocabulary quiz!</p>
                 <Link to='/questions'><button className='begin'>Begin</button></Link>
-              </div>
-              <div className='logout-box'>
-                <a href={'/api/auth/logout'}><button className='logout-button'>Logout</button></a>
               </div>
             </section>
         )

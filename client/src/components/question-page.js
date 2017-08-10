@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Logo from './logo';
 import {getQuestions, correct, toggleFeedback, incorrect} from '../actions';
 import Question from './question';
 import AnswerCard from './answer-card';
-// import './question-page.css'
+import DashHeader from './dash-header';
+import '../css/question-page.css'
 
 class QuestionPage extends React.Component {
 
@@ -30,27 +30,26 @@ class QuestionPage extends React.Component {
       }
 
       if(this.props.showFeedback) {
-        result = (
-          <div className='result'>
-            {this.props.result}
-          </div>
-        );
+        result = <h3>{this.props.result}</h3>;
         resultComponent = <AnswerCard />
-        nextButton = <button className='next' type='submit' onClick={this._onClick}>Next</button>
+        nextButton = (
+          <div className='next'>
+            <button type='submit' onClick={this._onClick}>Next</button>
+          </div>
+        )
       }
 
       return (
         <div id='question-container'>
-          <Logo />
-          {result}
+          <DashHeader />
+          <div className='result'>
+            {result}
+          </div>
           <div className='question-box'>
             <Question />
+            <AnswerCard />
           </div>
-          {resultComponent}
           {nextButton}
-          <div className='logout-box'>
-            <a href={'/api/auth/logout'}><button className='logout-button'>Logout</button></a>
-          </div>
         </div>
       );
     }

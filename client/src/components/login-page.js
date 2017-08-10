@@ -1,20 +1,23 @@
 import React from 'react';
-// import './login-page.css';
-import Logo from './logo';
-export default class LoginPage extends React.Component {
-    render() {
+import '../css/login-page.css';
+import LandingPageHeader from './landing-page-header';
+import WhatItDoes from './what-it-does';
+const LoginPage = (props) => {
 
         return (
             <div className='container-login'>
-                 <Logo />
+                 <LandingPageHeader />
                 <div className='about-us'>
-                    <h2>About Us...</h2>
-                    <p>Learn a language with us</p>
+                  <WhatItDoes whatItDoes='Use spaced repetition to memorize French vocabulary' />
+                  <WhatItDoes whatItDoes='Save your progress on the current quiz' />
+                  <WhatItDoes whatItDoes='Other things!' />
                 </div>
                 <div className='login-box'>
-                    <a href={'/api/auth/google'}><button>Login with Google</button></a>
+                    <a href={'/api/auth/google'}><button>Signup/Login with Google</button></a>
                 </div>
             </div>
         )
 }
-    }
+
+
+export default LoginPage
