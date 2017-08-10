@@ -18,3 +18,17 @@
   max-width: 75%;
   max-height: 100%;
 }
+
+.what-it-does:nth-child(1) {
+  color: white;
+  background-color: #0055A4;
+}
+
+.what-it-does:nth-child(2) {
+  background-color: #FFFFFF;
+}
+
+.what-it-does:nth-child(3) {
+  color: #FFFFFF;
+  background-color: #EF4135;
+}

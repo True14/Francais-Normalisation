@@ -3,7 +3,7 @@
   align-items: center;
   width: 100%;
   margin: 0 auto;
-  border: 1px solid;
+  border-bottom: 1px solid;
   height: 100px;
   background: #0074D9;
 }
