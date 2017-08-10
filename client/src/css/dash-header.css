@@ -1,0 +1,42 @@
+.dash-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid;
+  height: 100px;
+  background: #0074D9;
+}
+
+.dash-header h1 {
+  width: 50%;
+  color: #7FDBFF;
+  margin-left: 20px;
+}
+
+.logout-box {
+ width: 50%;
+ text-align: right;
+}
+
+.logout-box button {
+  margin-right: 20px;
+  height: 40px;
+  width: 100px;
+  border: none;
+  border-radius: 20px;
+  background-color: #42FFA9;
+}
+
+.logout-box button:hover {
+  background-color: #7FDBFF;
+    box-shadow: 2px 2px 5px black;
+}
+
+.logout-box button:focus {
+  outline: none;
+}
+
+.logout-box button:active {
+
+}

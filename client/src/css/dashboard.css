@@ -1,0 +1,29 @@
+.dashboard-container {
+    height:100vh
+}
+
+.question-container{
+    margin:auto;
+    text-align: center;
+    border: 1px solid black;
+    width: 500px;
+    height:300px;
+    margin-top:100px;
+}
+
+.begin {
+  margin-right: 20px;
+  height: 40px;
+  width: 100px;
+  border: none;
+  border-radius: 20px;
+  background-color: #7FDBFF;
+}
+
+.begin:hover {
+  box-shadow: 2px 2px 5px black;
+}
+
+.begin:active {
+  outline: none;
+}

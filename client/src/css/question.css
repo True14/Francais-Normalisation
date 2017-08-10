@@ -1,0 +1,22 @@
+.current-question , .answer-card {
+  text-align: center;
+  height: 150px;
+  width: 35%;
+  border: 1px solid;
+  background-color: white;
+  margin-top: 15px;
+}
+
+.current-question {
+  margin-right: 25px;
+  margin-left: 15px;
+}
+
+.answer-card {
+  margin-right: 15px;
+  margin-left: 25px;
+}
+
+.current-question > input {
+  max-width: 90%;
+}

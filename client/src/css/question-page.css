@@ -1,0 +1,42 @@
+.question-box{
+    display: flex;
+    /*margin:auto;*/
+    /*align-content: center;*/
+    justify-content: space-around;
+    width: 75%;
+    margin: 0 auto;
+    height:200px;
+    margin-top:80px;
+    background-color: #13B9E8;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.next{
+  margin: 0 auto;
+  text-align: center;
+}
+.next > button {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  background-color: #FF463B
+}
+
+.result {
+  border: 1px solid;
+  border-radius: 30px;
+  background-color: #42FFA9;
+  margin: 0 auto;
+  width: 25%;
+  text-align: center;
+  margin-top: 40px;
+  height: 50px;
+}
+
+.result > h3 {
+  color: black;
+  margin-top: 15px;
+}
