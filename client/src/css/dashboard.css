@@ -1,8 +1,10 @@
 .dashboard-container {
-    height:100vh
+    height:100vh;
+
 }
 
 .question-container{
+    border-radius: 20px;
     margin:auto;
     text-align: center;
     border: 1px solid black;
@@ -12,7 +14,7 @@
 }
 
 .begin {
-  margin-right: 20px;
+  margin-top: 30px;
   height: 40px;
   width: 100px;
   border: none;

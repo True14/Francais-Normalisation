@@ -5,9 +5,9 @@
     justify-content: space-around;
     width: 75%;
     margin: 0 auto;
-    height:200px;
-    margin-top:80px;
-    background-color: #13B9E8;
+    height: 400px;
+    margin-top: 80px;
+    background-color: #0055A4;
     border-radius: 10px;
     margin-bottom: 20px;
 }
@@ -21,8 +21,8 @@
   height: 30px;
   border: none;
   border-radius: 20px;
-  color: white;
-  background-color: #FF463B
+  color: #FFFFFF;
+  background-color: #EF4135
 }
 
 .result {
