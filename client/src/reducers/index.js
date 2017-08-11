@@ -1,7 +1,7 @@
 import Queue from '../queue';
 const initialState = {
     currentUser: null,
-    currentQuestion: undefined,
+    currentQuestion: null,
     questions:[],
     nextQuestion: null,
     score:null,
@@ -10,7 +10,9 @@ const initialState = {
     userAnswer: '',
     error: null,
     showFeedback: false,
-    result: ''
+    result: '',
+    completed: false,
+    save: false
 }
 
 export const learnReducer = (state = initialState, action) => {
@@ -20,6 +22,11 @@ export const learnReducer = (state = initialState, action) => {
               ...state,
               loading: true
             }
+        case 'FETCH_SUCCESS':
+             return {
+               ...state,
+               loading: false
+             }
         case 'REQUEST_QUESTIONS_SUCCESS':
             let queue = new Queue();
             action.questions.forEach(question => {
@@ -41,6 +48,7 @@ export const learnReducer = (state = initialState, action) => {
               error: action.error
             }
         case 'GET_CURRENT_USER_SUCCESS':
+            current = null;
             if (action.user.questions) {
               queue = new Queue();
               action.user.questions.forEach(question => {
@@ -63,26 +71,45 @@ export const learnReducer = (state = initialState, action) => {
                userAnswer
              }
         case 'CORRECT':
-            queue = state.questionQueue;
+            let node = state.questionQueue.first;
+            queue = new Queue();
             current = state.currentQuestion;
-            queue.enqueue(current);
+            let completed = false;
+            while (node) {
+              queue.enqueue(node.data);
+              node = node.prev;
+            }
+            if (current.right < 3) {
+              queue.enqueue(current);
+            }
             current = queue.dequeue();
+            if (!current) {
+              completed = true;
+            }
             return {
               ...state,
               currentQuestion: current,
-              queue,
-              userAnswer: ''
+              questionQueue: queue,
+              userAnswer: '',
+              completed,
+              save: true
             }
          case 'INCORRECT':
-            queue = state.questionQueue;
+            node = state.questionQueue.first;
+            queue = new Queue();
             current = state.currentQuestion;
+            while (node) {
+              queue.enqueue(node.data);
+              node = node.prev;
+            }
             queue.insert(1, current);
             current = queue.dequeue();
             return {
               ...state,
-              queue,
+              questionQueue: queue,
               userAnswer: '',
-              currentQuestion: current
+              currentQuestion: current,
+              save: true
             }
          case 'SET_RESULT':
             current = state.currentQuestion;
@@ -102,6 +129,16 @@ export const learnReducer = (state = initialState, action) => {
               ...state,
               showFeedback: !state.showFeedback
             }
+         case 'RESET':
+            return {
+              ...state,
+              completed: false
+            }
+          case 'SAVE':
+             return {
+               ...state,
+               save: false
+             }
         default:
             return state
     }

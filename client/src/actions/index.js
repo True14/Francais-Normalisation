@@ -5,6 +5,11 @@ export const fetchRequest = () => ({
     type:FETCH_REQUEST,
 });
 
+export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const fetchSuccess = () => ({
+  type: FETCH_SUCCESS
+})
+
 export const REQUEST_QUESTIONS_SUCCESS = 'REQUEST_QUESTIONS_SUCCESS';
 export const requestQuestionsSuccess = questions => ({
     type: REQUEST_QUESTIONS_SUCCESS,
@@ -15,6 +20,11 @@ export const FETCH_ERROR = 'FETCH_ERROR';
 export const fetchError = error => ({
     type: FETCH_ERROR,
     error
+});
+
+export const SAVE_SUCCESS = 'SAVE_SUCCESS';
+export const saveSuccess = () => ({
+  type: SAVE_SUCCESS
 });
 
 // export const NEXT_QUESTION = 'NEXT_QUESTION';
@@ -54,6 +64,12 @@ export const setResult = result => ({
   type: SET_RESULT,
   result
 })
+
+export const RESET = 'RESET';
+export const reset = () => ({
+    type: RESET
+  }
+)
 
 export const getQuestions = () => dispatch => {
   const accessToken = Cookies.get('accessToken');
@@ -103,11 +119,15 @@ export const getCurrentUser = () => dispatch => {
 
 export const save = (id, question, queue) => dispatch => {
   const saveQuiz = [];
-  saveQuiz.push(question);
-  let current = queue.dequeue();
-  while (current) {
-    saveQuiz.push(current);
-    current = queue.dequeue();
+  if (question) {
+    saveQuiz.push(question);
+  }
+  if (queue) {
+    let current = queue.first;
+    while (current) {
+      saveQuiz.push(current.data);
+      current = current.prev;
+    }
   }
   const accessToken = Cookies.get('accessToken');
   if (accessToken) {
@@ -130,7 +150,7 @@ export const save = (id, question, queue) => dispatch => {
         }
         throw new Error(res.statusText)
       }
-      return;
+      dispatch(saveSuccess());
     })
     .catch(err => dispatch(fetchError(err)))
   }
