@@ -6,8 +6,11 @@ import '../css/congratulations.css';
 
 class Congratulations extends React.Component {
 
-  _onClick = e => {
+  componentDidMount = () => {
     this.props.dispatch(save(this.props.currentUser.id, undefined, undefined));
+  }
+
+  _onClick = e => {
     this.props.dispatch(reset())
   }
 

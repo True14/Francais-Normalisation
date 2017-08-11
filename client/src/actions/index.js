@@ -119,16 +119,17 @@ export const getCurrentUser = () => dispatch => {
 
 export const save = (id, question, queue) => dispatch => {
   const saveQuiz = [];
-  if (question) {
+  if (question !== undefined) {
     saveQuiz.push(question);
   }
-  if (queue) {
+  if (queue !== undefined) {
     let current = queue.first;
     while (current) {
       saveQuiz.push(current.data);
       current = current.prev;
     }
   }
+  console.log(saveQuiz);
   const accessToken = Cookies.get('accessToken');
   if (accessToken) {
     dispatch(fetchRequest());
