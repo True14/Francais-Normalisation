@@ -5,7 +5,8 @@ at http://frenchatize.herokuapp.com/
 
 ## Description
 My spaced repetition app allows users to complete a quiz that help with memorization of French vocabulary.
-It's an easy way for users to practice some basic French knowledge.
+It's an easy way for users to practice some basic French knowledge as the spaced repetition allows for quick
+familiarity of a word and it's meaning.
 
 My MVP uses one set of ten questions as content, but can easily be expanded upon.
 
