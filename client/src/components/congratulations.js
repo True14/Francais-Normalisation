@@ -15,8 +15,10 @@ class Congratulations extends React.Component {
     return (
       <div className='congratulations'>
         <DashHeader />
-        <h1>Congratulations! You have completed the quiz!</h1>
-        <button className='reset' type='submit' onClick={this._onClick}>Reset</button>
+        <section className='reset-div'>
+          <h1>Congratulations! You have completed the quiz!</h1>
+          <button className='reset' type='submit' onClick={this._onClick}>Reset</button>
+        </section>
       </div>
     )
   }

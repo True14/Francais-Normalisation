@@ -1,0 +1,20 @@
+.reset-div {
+  text-align: center;
+}
+
+.reset {
+  margin-right: 20px;
+  height: 40px;
+  width: 100px;
+  border: none;
+  border-radius: 20px;
+  background-color: #EF4135;
+}
+
+.reset:hover {
+  box-shadow: 2px 2px 5px black;
+}
+
+.reset:focus {
+  outline: none;
+}
