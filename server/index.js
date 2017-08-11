@@ -31,15 +31,6 @@ passport.use(
       callbackURL: '/api/auth/google/callback'
     },
     (accessToken, refreshToken, profile, cb) => {
-      // console.log('Access Token',accessToken,'Profile',profile);
-        // Job 1: Set up Mongo/Mongoose, create a User model which store the
-        // google id, and the access token
-        // Job 2: Update this callback to either update or create the user
-        // so it contains the correct access token
-      // const user = database[accessToken] = {
-      //   googleId: profile.id,
-      //   accessToken: accessToken
-      // };
       let user;
       User
         .findOne({googleId: profile.id})
@@ -51,7 +42,8 @@ passport.use(
               name: profile.name.givenName,
               googleId: profile.id,
               accessToken: accessToken,
-              score: 0
+              score: 0,
+              questions: []
             });
           }
           return User
@@ -67,9 +59,6 @@ passport.use(
 
 passport.use(
     new BearerStrategy((token, done) => {
-            // Job 3: Update this callback to try to find a user with a
-            // matching access token.  If they exist, let em in, if not,
-            // don't.
       User
         .find({accessToken: token})
         .exec()
@@ -122,6 +111,17 @@ app.get('/api/questions',
       console.error(err);
       res.status(500).json({error: 'We are sorry, we were unable to retrieve the questions.'});
     });
+  }
+);
+
+app.put('/api/save',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    User.findByIdAndUpdate(req.body.id, {questions: req.body.questions}, {new: true})
+    .then(user => {
+      res.status(200);
+    })
+    .catch(err => console.log(err));
   }
 );
 

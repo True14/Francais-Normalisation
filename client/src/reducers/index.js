@@ -41,9 +41,18 @@ export const learnReducer = (state = initialState, action) => {
               error: action.error
             }
         case 'GET_CURRENT_USER_SUCCESS':
+            if (action.user.questions) {
+              queue = new Queue();
+              action.user.questions.forEach(question => {
+                queue.enqueue(question);
+              })
+              current = queue.dequeue();
+            }
             return {
               ...state,
               currentUser: action.user,
+              currentQuestion: current,
+              questionQueue: queue,
               loading: false,
               error: null
             }
@@ -55,7 +64,8 @@ export const learnReducer = (state = initialState, action) => {
              }
         case 'CORRECT':
             queue = state.questionQueue;
-            queue.enqueue(state.currentQuestion);
+            current = state.currentQuestion;
+            queue.enqueue(current);
             current = queue.dequeue();
             return {
               ...state,
@@ -65,7 +75,8 @@ export const learnReducer = (state = initialState, action) => {
             }
          case 'INCORRECT':
             queue = state.questionQueue;
-            queue.insert(1, state.currentQuestion);
+            current = state.currentQuestion;
+            queue.insert(1, current);
             current = queue.dequeue();
             return {
               ...state,
@@ -74,8 +85,16 @@ export const learnReducer = (state = initialState, action) => {
               currentQuestion: current
             }
          case 'SET_RESULT':
+            current = state.currentQuestion;
+            if (action.result === 'Correct') {
+              current.right += 1;
+            }else {
+              current.wrong += 1;
+              current.right = 0;
+            }
              return {
                ...state,
+               currentQuestion: current,
                result: action.result
              }
          case 'TOGGLE_FEEDBACK':

@@ -33,6 +33,12 @@ class Question extends React.Component {
         <h1>Question: </h1>
         <h2>{this.props.currentQuestion.word}</h2>
         <span>Your answer: {this.props.userAnswer}</span>
+        <div className='correct'>
+          <p>Streak: {this.props.currentQuestion.right}</p>
+        </div>
+        <div className='incorrect'>
+          <p>Wrong: {this.props.currentQuestion.wrong}</p>
+        </div>
        </div>
       )
     }
@@ -42,6 +48,12 @@ class Question extends React.Component {
         <h1>Question: </h1>
         <h2>{this.props.currentQuestion.word}</h2>
         <input type='text' value={this.props.userAnswer} placeholder='Your Answer' onChange={this._onChange} />
+        <div className='correct'>
+          <p>Streak: {this.props.currentQuestion.right}</p>
+        </div>
+        <div className='incorrect'>
+          <p>Wrong: {this.props.currentQuestion.wrong}</p>
+        </div>
       </form>
     )
   }

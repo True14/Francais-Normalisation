@@ -100,3 +100,38 @@ export const getCurrentUser = () => dispatch => {
     .catch(err => dispatch(fetchError(err)))
   }
 }
+
+export const save = (id, question, queue) => dispatch => {
+  const saveQuiz = [];
+  saveQuiz.push(question);
+  let current = queue.dequeue();
+  while (current) {
+    saveQuiz.push(current);
+    current = queue.dequeue();
+  }
+  const accessToken = Cookies.get('accessToken');
+  if (accessToken) {
+    dispatch(fetchRequest());
+    return fetch('/api/save', {
+      method: 'PUT',
+      headers: {
+        'Authorization':`Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        questions: saveQuiz
+      })
+    }).then(res => {
+      if (!res.ok) {
+        if (res.status === 401) {
+          Cookies.remove('accessToken');
+          return;
+        }
+        throw new Error(res.statusText)
+      }
+      return;
+    })
+    .catch(err => dispatch(fetchError(err)))
+  }
+}

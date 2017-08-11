@@ -9,7 +9,9 @@ import '../css/question-page.css'
 class QuestionPage extends React.Component {
 
     componentDidMount = () => {
-      this.props.dispatch(getQuestions())
+      if(!this.props.currentQuestion) {
+        this.props.dispatch(getQuestions())
+      }
     }
 
     _onClick = e => {

@@ -3,14 +3,18 @@
 const mongoose = require('mongoose');
 const questionsSchema = mongoose.Schema({
   word: String,
-  answer: String
+  answer: String,
+  right: Number,
+  wrong: Number
 });
 
 questionsSchema.methods.apiRepr = function() {
   return {
     id: this._id,
     word: this.word,
-    answer: this.answer
+    answer: this.answer,
+    right: this.right,
+    wrong: this.wrong
   };
 };
 
@@ -18,8 +22,8 @@ const userSchema = mongoose.Schema({
   googleId: {type: String, required: true},
   accessToken: {type: String},
   name: {type: String},
-  score: Number
-  //questions
+  score: Number,
+  questions: Array
 });
 
 userSchema.methods.apiRepr = function() {
@@ -27,7 +31,8 @@ userSchema.methods.apiRepr = function() {
     id: this._id,
     googleId: this.googleId,
     name: this.name,
-    score: this.score
+    score: this.score,
+    questions: this.questions
   };
 };
 
