@@ -1,16 +1,16 @@
 .dashboard-container {
-    height:100vh;
+  height:100vh;
 
 }
 
 .question-container{
-    border-radius: 20px;
-    margin:auto;
-    text-align: center;
-    border: 1px solid black;
-    width: 500px;
-    height:300px;
-    margin-top:100px;
+  border-radius: 20px;
+  margin:auto;
+  text-align: center;
+  border: 1px solid black;
+  width: 500px;
+  height:300px;
+  margin-top:100px;
 }
 
 .begin {

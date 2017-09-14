@@ -1,15 +1,13 @@
 .question-box{
-    display: flex;
-    /*margin:auto;*/
-    /*align-content: center;*/
-    justify-content: space-around;
-    width: 75%;
-    margin: 0 auto;
-    height: 400px;
-    margin-top: 80px;
-    background-color: #0055A4;
-    border-radius: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  width: 75%;
+  margin: 0 auto;
+  height: 400px;
+  margin-top: 80px;
+  background-color: #0055A4;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .next{

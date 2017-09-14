@@ -1,4 +1,5 @@
-.current-question , .answer-card {
+.current-question,
+.answer-card {
   text-align: center;
   height: 250px;
   width: 35%;
@@ -17,7 +18,8 @@
   margin-left: 25px;
 }
 
-.answer-card > h2, .current-question > h2 {
+.answer-card > h2,
+.current-question > h2 {
   margin-top: 20px;
   color: #EF4135;
 }
