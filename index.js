@@ -1,7 +1,5 @@
 const express = require('express');
 const proxy = require('http-proxy-middleware');
-
-const app = express();
 const runServer = require('./server').runServer;
 
 if (process.env.NODE_ENV === 'production') {

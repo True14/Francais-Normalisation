@@ -5,8 +5,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bodyParser = require('body-parser');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
-const {User, Question} = require('./models');
-const {DATABASE_URL, PORT} = require('./config');
+const { User, Question } = require('./models');
+const { DATABASE_URL, PORT } = require('./config');
 mongoose.Promise = global.Promise;
 
 

@@ -1,5 +1,4 @@
-
-function createNode(data=null, next=null, prev=null) {
+function createNode(data = null, next = null, prev = null) {
   return {
     data,
     next,
@@ -24,16 +23,16 @@ export default class Queue {
       node = node.prev;
       pos--;
     }
-      newNode.next = node;
-      newNode.prev = node.prev;
-      node.prev = newNode;
-      newNode.prev.next = newNode;
+    newNode.next = node;
+    newNode.prev = node.prev;
+    node.prev = newNode;
+    newNode.prev.next = newNode;
   }
 
   enqueue(data) {
     const node = createNode(data);
 
-    if(this.last) {
+    if (this.last) {
       node.next = this.last;
       this.last.prev = node;
     }
@@ -57,26 +56,10 @@ export default class Queue {
       this.last = null;
     }
 
-    if(this.first) {
+    if (this.first) {
       this.first.next = null;
     }
 
     return node.data;
   }
 }
-
-// const display = queue => {
-//   let node = queue.first;
-//   while (node !== null) {
-//     console.log(node.data);
-//     node = node.prev;
-//   }
-// };
-//
-// const peek = queue => {
-//   if (queue.first === null || queue.last === null) {
-//     return null;
-//   }
-//
-//   return queue.first.data;
-// };
