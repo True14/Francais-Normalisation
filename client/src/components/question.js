@@ -1,11 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {setUserAnswer, toggleFeedback, setResult} from '../actions';
+import { connect } from 'react-redux';
+import { setUserAnswer, toggleFeedback, setResult } from '../actions';
+
 import '../css/question.css';
 
 class Question extends React.Component {
 
-  _onSumbit = (e) => {
+  onSumbit = (e) => {
     e.preventDefault();
     if (this.props.userAnswer) {
       if (this.props.userAnswer === this.props.currentQuestion.answer) {
@@ -17,7 +18,7 @@ class Question extends React.Component {
     }
   }
 
-  _onChange = e => {
+  onChange = e => {
     this.props.dispatch(setUserAnswer(e.target.value));
 
   }
@@ -29,14 +30,14 @@ class Question extends React.Component {
 
     if(this.props.showFeedback) {
     return (
-       <div className='current-question'>
+       <div className="current-question">
         <h1>Question: </h1>
         <h2>{this.props.currentQuestion.word}</h2>
         <span>Your answer: {this.props.userAnswer}</span>
-        <div className='correct'>
+        <div className="correct">
           <p>Streak: {this.props.currentQuestion.right}</p>
         </div>
-        <div className='incorrect'>
+        <div className="incorrect">
           <p>Wrong: {this.props.currentQuestion.wrong}</p>
         </div>
        </div>
@@ -44,14 +45,14 @@ class Question extends React.Component {
     }
 
     return (
-      <form className='current-question' onSubmit={this._onSumbit} >
+      <form className="current-question" onSubmit={this.onSumbit}>
         <h1>Question: </h1>
         <h2>{this.props.currentQuestion.word}</h2>
-        <input type='text' value={this.props.userAnswer} placeholder='Your Answer' onChange={this._onChange} />
-        <div className='correct'>
+        <input type="text" value={this.props.userAnswer} placeholder="Your Answer" onChange={this.onChange} />
+        <div className="correct">
           <p>Streak: {this.props.currentQuestion.right}</p>
         </div>
-        <div className='incorrect'>
+        <div className="incorrect">
           <p>Wrong: {this.props.currentQuestion.wrong}</p>
         </div>
       </form>
@@ -59,11 +60,9 @@ class Question extends React.Component {
   }
 }
 
-const mapPropsToState = (state,props) => {
-  return {
-    currentQuestion: state.currentQuestion,
-    userAnswer: state.userAnswer,
-    showFeedback: state.showFeedback,
-  }
-}
+const mapPropsToState = state => ({
+  currentQuestion: state.currentQuestion,
+  userAnswer: state.userAnswer,
+  showFeedback: state.showFeedback,
+});
 export default connect(mapPropsToState)(Question)

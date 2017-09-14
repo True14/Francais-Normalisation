@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class AnswerCard extends React.Component {
 
@@ -9,7 +9,7 @@ class AnswerCard extends React.Component {
       answer = <h2>{this.props.currentQuestion.answer}</h2>
     }
     return (
-    <div className='answer-card'>
+    <div className="answer-card">
       <h1>Answer: </h1>
       {answer}
     </div>
@@ -17,11 +17,9 @@ class AnswerCard extends React.Component {
  }
 }
 
-const mapPropsToState = (state,props) => {
-  return {
-    currentQuestion: state.currentQuestion,
-    userAnswer: state.userAnswer,
-    showFeedback: state.showFeedback
-  }
-}
+const mapPropsToState = state => ({
+  currentQuestion: state.currentQuestion,
+  userAnswer: state.userAnswer,
+  showFeedback: state.showFeedback
+});
 export default connect(mapPropsToState)(AnswerCard)

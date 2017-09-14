@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {save, reset} from '../actions';
+import { save, reset } from '../actions';
 import DashHeader from './dash-header';
+
 import '../css/congratulations.css';
 
 class Congratulations extends React.Component {
@@ -10,27 +11,24 @@ class Congratulations extends React.Component {
     this.props.dispatch(save(this.props.currentUser.id, undefined, undefined));
   }
 
-  _onClick = e => {
-    this.props.dispatch(reset())
+  onClick = e => {
+    this.props.dispatch(reset());
   }
 
   render = () => {
     return (
-      <div className='congratulations'>
+      <div className="congratulations">
         <DashHeader />
-        <section className='reset-div'>
+        <section className="reset-div">
           <h1>Congratulations! You have completed the quiz!</h1>
-          <button className='reset' type='submit' onClick={this._onClick}>Reset</button>
+          <button className="reset" type="submit" onClick={this.onClick}>Reset</button>
         </section>
       </div>
     )
   }
 }
 
-const mapPropsToState = state => {
-  return {
-    currentUser: state.currentUser
-  }
-}
-
+const mapPropsToState = state => ({
+  currentUser: state.currentUser
+});
 export default connect(mapPropsToState)(Congratulations)
