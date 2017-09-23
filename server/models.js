@@ -8,13 +8,15 @@ const questionsSchema = mongoose.Schema({
   wrong: Number
 });
 
-questionsSchema.methods.apiRepr = () => ({
-  id: this._id,
-  word: this.word,
-  answer: this.answer,
-  right: this.right,
-  wrong: this.wrong
-});
+questionsSchema.methods.apiRepr = function() {
+  return {
+    id: this._id,
+    word: this.word,
+    answer: this.answer,
+    right: this.right,
+    wrong: this.wrong
+  };
+};
 
 const userSchema = mongoose.Schema({
   googleId: {
@@ -31,13 +33,15 @@ const userSchema = mongoose.Schema({
   questions: Array
 });
 
-userSchema.methods.apiRepr = () => ({
-  id: this._id,
-  googleId: this.googleId,
-  name: this.name,
-  score: this.score,
-  questions: this.questions
-});
+userSchema.methods.apiRepr = function() {
+  return {
+    id: this._id,
+    googleId: this.googleId,
+    name: this.name,
+    score: this.score,
+    questions: this.questions
+  };
+};
 
 
 

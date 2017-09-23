@@ -31,7 +31,7 @@ export const learnReducer = (state = initialState, action) => {
       let queue = new Queue();
       action.questions.forEach(question => {
         queue.enqueue(question);
-      })
+      });
       let current = queue.dequeue();
       return {
         ...state,
