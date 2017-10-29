@@ -28,7 +28,7 @@ class Congratulations extends React.Component {
   }
 }
 
-const mapPropsToState = state => ({
+const mapStateToProps = state => ({
   currentUser: state.currentUser
 });
-export default connect(mapPropsToState)(Congratulations)
+export default connect(mapStateToProps)(Congratulations)

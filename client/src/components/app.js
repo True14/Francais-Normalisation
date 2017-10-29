@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 }
 
-const mapPropsToState = state => ({
+const mapStateToProps = state => ({
   currentUser: state.currentUser
 })
-export default connect(mapPropsToState)(App);
+export default connect(mapStateToProps)(App);

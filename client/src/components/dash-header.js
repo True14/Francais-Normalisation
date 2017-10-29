@@ -23,10 +23,10 @@ class DashHeader extends React.Component  {
   }
 }
 
-const mapPropsToState = state => ({
+const mapStateToProps = state => ({
   currentUser: state.currentUser,
   currentQuestion: state.currentQuestion,
   questionQueue: state.questionQueue
 });
 
-export default connect(mapPropsToState)(DashHeader);
+export default connect(mapStateToProps)(DashHeader);

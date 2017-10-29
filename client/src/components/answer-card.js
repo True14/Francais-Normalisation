@@ -17,9 +17,9 @@ class AnswerCard extends React.Component {
  }
 }
 
-const mapPropsToState = state => ({
+const mapStateToProps = state => ({
   currentQuestion: state.currentQuestion,
   userAnswer: state.userAnswer,
   showFeedback: state.showFeedback
 });
-export default connect(mapPropsToState)(AnswerCard)
+export default connect(mapStateToProps)(AnswerCard)

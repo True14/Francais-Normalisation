@@ -69,7 +69,7 @@ class QuestionPage extends React.Component {
     );
   }
 }
-const mapPropsToState = state => ({
+const mapStateToProps = state => ({
   currentQuestion: state.currentQuestion,
   userAnswer: state.userAnswer,
   showFeedback: state.showFeedback,
@@ -80,4 +80,4 @@ const mapPropsToState = state => ({
   save: state.save
 });
 
-export default connect(mapPropsToState)(QuestionPage)
+export default connect(mapStateToProps)(QuestionPage)
